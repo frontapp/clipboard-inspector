@@ -10143,7 +10143,7 @@ var ClipboardInspector = function (_React$Component) {
       ) : _react2.default.createElement(
         "div",
         { className: "intro-msg" },
-        "Paste something to get started."
+        "Paste something by pressing \u2318V or Ctrl+V"
       );
     }
   }, {

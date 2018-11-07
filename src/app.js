@@ -217,7 +217,7 @@ class ClipboardInspector extends React.Component {
         </div>
       </div>
     ) : (
-      <div className="intro-msg">Paste something to get started.</div>
+      <div className="intro-msg">Paste something by pressing ⌘V or Ctrl+V</div>
     );
   }
 
