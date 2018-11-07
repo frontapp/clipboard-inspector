@@ -97,6 +97,9 @@ class ClipboardInspector extends React.Component {
           >
             event.clipboardData
           </a>
+          <span className="anno">
+            <button type="button" onClick={() => this.downloadData(render_data)}>Download</button>
+          </span>
         </h1>
 
         <div className="clipboard-section">
@@ -132,7 +135,7 @@ class ClipboardInspector extends React.Component {
                     <code>{obj.type}</code>
                   </td>
                   <td>
-                    <code>{obj.data || <em>Empty string</em>}</code>
+                    <code>{obj.data ? <pre>{obj.data}</pre> : <em>Empty string</em>}</code>
                   </td>
                 </tr>
               ))}
@@ -216,6 +219,24 @@ class ClipboardInspector extends React.Component {
     ) : (
       <div className="intro-msg">Paste something to get started.</div>
     );
+  }
+
+  downloadData(data) {
+    const augmentedData = Object.assign({
+      userAgent: navigator.userAgent
+    }, data);
+    const stringifiedData = JSON.stringify(augmentedData);
+
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(stringifiedData));
+    element.setAttribute('download', 'clipboard.json');
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
   }
 }
 

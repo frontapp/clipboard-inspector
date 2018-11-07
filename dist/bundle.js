@@ -9916,6 +9916,17 @@ var ClipboardInspector = function (_React$Component) {
               href: "https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent/clipboardData"
             },
             "event.clipboardData"
+          ),
+          _react2.default.createElement(
+            "span",
+            { className: "anno" },
+            _react2.default.createElement(
+              "button",
+              { type: "button", onClick: function onClick() {
+                  return _this2.downloadData(render_data);
+                } },
+              "Download"
+            )
           )
         ),
         _react2.default.createElement(
@@ -9989,7 +10000,11 @@ var ClipboardInspector = function (_React$Component) {
                     _react2.default.createElement(
                       "code",
                       null,
-                      obj.data || _react2.default.createElement(
+                      obj.data ? _react2.default.createElement(
+                        "pre",
+                        null,
+                        obj.data
+                      ) : _react2.default.createElement(
                         "em",
                         null,
                         "Empty string"
@@ -10130,6 +10145,25 @@ var ClipboardInspector = function (_React$Component) {
         { className: "intro-msg" },
         "Paste something to get started."
       );
+    }
+  }, {
+    key: "downloadData",
+    value: function downloadData(data) {
+      var augmentedData = Object.assign({
+        userAgent: navigator.userAgent
+      }, data);
+      var stringifiedData = JSON.stringify(augmentedData);
+
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(stringifiedData));
+      element.setAttribute('download', 'clipboard.json');
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+
+      element.click();
+
+      document.body.removeChild(element);
     }
   }]);
 
