@@ -90,6 +90,12 @@ class ClipboardInspector extends React.Component {
 
     return render_data ? (
       <div className="clipboard-summary">
+        <div className="intro-msg">
+          Great! Now download and email to Front for troubleshooting:
+          <br/>
+          <button type="button" onClick={() => this.downloadData(render_data)}>Download</button>
+        </div>
+
         <h1>
           <a
             className="mdn"
@@ -97,9 +103,6 @@ class ClipboardInspector extends React.Component {
           >
             event.clipboardData
           </a>
-          <span className="anno">
-            <button type="button" onClick={() => this.downloadData(render_data)}>Download</button>
-          </span>
         </h1>
 
         <div className="clipboard-section">
@@ -229,7 +232,7 @@ class ClipboardInspector extends React.Component {
 
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(stringifiedData));
-    element.setAttribute('download', 'clipboard.json');
+    element.setAttribute('download', `clipboard-${Date.now()}.json`);
 
     element.style.display = 'none';
     document.body.appendChild(element);

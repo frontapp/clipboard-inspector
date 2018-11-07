@@ -9907,6 +9907,19 @@ var ClipboardInspector = function (_React$Component) {
         "div",
         { className: "clipboard-summary" },
         _react2.default.createElement(
+          "div",
+          { className: "intro-msg" },
+          "Great! Now download and email to Front for troubleshooting:",
+          _react2.default.createElement("br", null),
+          _react2.default.createElement(
+            "button",
+            { type: "button", onClick: function onClick() {
+                return _this2.downloadData(render_data);
+              } },
+            "Download"
+          )
+        ),
+        _react2.default.createElement(
           "h1",
           null,
           _react2.default.createElement(
@@ -9916,17 +9929,6 @@ var ClipboardInspector = function (_React$Component) {
               href: "https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent/clipboardData"
             },
             "event.clipboardData"
-          ),
-          _react2.default.createElement(
-            "span",
-            { className: "anno" },
-            _react2.default.createElement(
-              "button",
-              { type: "button", onClick: function onClick() {
-                  return _this2.downloadData(render_data);
-                } },
-              "Download"
-            )
           )
         ),
         _react2.default.createElement(
@@ -10156,7 +10158,7 @@ var ClipboardInspector = function (_React$Component) {
 
       var element = document.createElement('a');
       element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(stringifiedData));
-      element.setAttribute('download', 'clipboard.json');
+      element.setAttribute('download', "clipboard-" + Date.now() + ".json");
 
       element.style.display = 'none';
       document.body.appendChild(element);
