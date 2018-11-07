@@ -9759,372 +9759,393 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function file_info(file) {
-	return file ? {
-		name: file.name,
-		size: file.size,
-		type: file.type,
-		url: URL.createObjectURL(file)
-	} : null;
+  return file ? {
+    name: file.name,
+    size: file.size,
+    type: file.type,
+    url: URL.createObjectURL(file)
+  } : null;
 }
 
 var ClipboardInspector = function (_React$Component) {
-	_inherits(ClipboardInspector, _React$Component);
+  _inherits(ClipboardInspector, _React$Component);
 
-	function ClipboardInspector() {
-		_classCallCheck(this, ClipboardInspector);
+  function ClipboardInspector() {
+    _classCallCheck(this, ClipboardInspector);
 
-		return _possibleConstructorReturn(this, (ClipboardInspector.__proto__ || Object.getPrototypeOf(ClipboardInspector)).apply(this, arguments));
-	}
+    return _possibleConstructorReturn(this, (ClipboardInspector.__proto__ || Object.getPrototypeOf(ClipboardInspector)).apply(this, arguments));
+  }
 
-	_createClass(ClipboardInspector, [{
-		key: 'render_file',
-		value: function render_file(file) {
-			return file ? _react2.default.createElement(
-				'table',
-				null,
-				_react2.default.createElement(
-					'thead',
-					null,
-					_react2.default.createElement(
-						'tr',
-						null,
-						_react2.default.createElement(
-							'th',
-							null,
-							'Name'
-						),
-						_react2.default.createElement(
-							'th',
-							null,
-							'Size'
-						),
-						_react2.default.createElement(
-							'th',
-							null,
-							'Type'
-						),
-						_react2.default.createElement(
-							'th',
-							null,
-							_react2.default.createElement(
-								'a',
-								{ className: 'mdn', href: 'https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL' },
-								'URL.createObjectURL(file)'
-							)
-						)
-					)
-				),
-				_react2.default.createElement(
-					'tbody',
-					null,
-					_react2.default.createElement(
-						'tr',
-						null,
-						_react2.default.createElement(
-							'td',
-							null,
-							_react2.default.createElement(
-								'code',
-								null,
-								file.name
-							)
-						),
-						_react2.default.createElement(
-							'td',
-							null,
-							_react2.default.createElement(
-								'code',
-								null,
-								file.size
-							)
-						),
-						_react2.default.createElement(
-							'td',
-							null,
-							_react2.default.createElement(
-								'code',
-								null,
-								file.type
-							)
-						),
-						_react2.default.createElement(
-							'td',
-							null,
-							_react2.default.createElement(
-								'code',
-								null,
-								_react2.default.createElement(
-									'a',
-									{ href: file.url },
-									_react2.default.createElement('img', { src: file.url })
-								)
-							)
-						)
-					)
-				)
-			) : _react2.default.createElement(
-				'em',
-				null,
-				'N/A'
-			);
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _this2 = this;
+  _createClass(ClipboardInspector, [{
+    key: "render_file",
+    value: function render_file(file) {
+      return file ? _react2.default.createElement(
+        "table",
+        null,
+        _react2.default.createElement(
+          "thead",
+          null,
+          _react2.default.createElement(
+            "tr",
+            null,
+            _react2.default.createElement(
+              "th",
+              null,
+              "Name"
+            ),
+            _react2.default.createElement(
+              "th",
+              null,
+              "Size"
+            ),
+            _react2.default.createElement(
+              "th",
+              null,
+              "Type"
+            ),
+            _react2.default.createElement(
+              "th",
+              null,
+              _react2.default.createElement(
+                "a",
+                {
+                  className: "mdn",
+                  href: "https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL"
+                },
+                "URL.createObjectURL(file)"
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "tbody",
+          null,
+          _react2.default.createElement(
+            "tr",
+            null,
+            _react2.default.createElement(
+              "td",
+              null,
+              _react2.default.createElement(
+                "code",
+                null,
+                file.name
+              )
+            ),
+            _react2.default.createElement(
+              "td",
+              null,
+              _react2.default.createElement(
+                "code",
+                null,
+                file.size
+              )
+            ),
+            _react2.default.createElement(
+              "td",
+              null,
+              _react2.default.createElement(
+                "code",
+                null,
+                file.type
+              )
+            ),
+            _react2.default.createElement(
+              "td",
+              null,
+              _react2.default.createElement(
+                "code",
+                null,
+                _react2.default.createElement(
+                  "a",
+                  { href: file.url },
+                  _react2.default.createElement("img", { src: file.url })
+                )
+              )
+            )
+          )
+        )
+      ) : _react2.default.createElement(
+        "em",
+        null,
+        "N/A"
+      );
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
-			var event = this.props.event;
+      var event = this.props.event;
 
 
-			var render_data = null;
+      var render_data = null;
 
-			if (event) {
-				render_data = {
-					data_by_type: Array.from(event.clipboardData.types).map(function (type) {
-						var data = event.clipboardData.getData(type);
-						return {
-							type: type,
-							data: data
-						};
-					}),
-					items: event.clipboardData.items ? Array.from(event.clipboardData.items).map(function (item) {
-						return {
-							kind: item.kind,
-							type: item.type,
-							as_file: file_info(item.getAsFile())
-						};
-					}) : null,
-					files: event.clipboardData.files ? Array.from(event.clipboardData.files).map(function (file) {
-						return file_info(file);
-					}) : null
-				};
-			}
+      if (event) {
+        render_data = {
+          data_by_type: Array.from(event.clipboardData.types).map(function (type) {
+            var data = event.clipboardData.getData(type);
+            return {
+              type: type,
+              data: data
+            };
+          }),
+          items: event.clipboardData.items ? Array.from(event.clipboardData.items).map(function (item) {
+            return {
+              kind: item.kind,
+              type: item.type,
+              as_file: file_info(item.getAsFile())
+            };
+          }) : null,
+          files: event.clipboardData.files ? Array.from(event.clipboardData.files).map(function (file) {
+            return file_info(file);
+          }) : null
+        };
+      }
 
-			return render_data ? _react2.default.createElement(
-				'div',
-				{ className: 'clipboard-summary' },
-				_react2.default.createElement(
-					'h1',
-					null,
-					_react2.default.createElement(
-						'a',
-						{ className: 'mdn', href: 'https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent/clipboardData' },
-						'event.clipboardData'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'clipboard-section' },
-					_react2.default.createElement(
-						'h2',
-						null,
-						_react2.default.createElement(
-							'a',
-							{ className: 'mdn', href: 'https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/types' },
-							'types'
-						),
-						_react2.default.createElement(
-							'span',
-							{ className: 'anno' },
-							render_data.data_by_type.length,
-							' type(s) available'
-						)
-					),
-					_react2.default.createElement(
-						'table',
-						null,
-						_react2.default.createElement(
-							'thead',
-							null,
-							_react2.default.createElement(
-								'tr',
-								null,
-								_react2.default.createElement(
-									'th',
-									null,
-									'type'
-								),
-								_react2.default.createElement(
-									'th',
-									null,
-									_react2.default.createElement(
-										'a',
-										{ className: 'mdn', href: 'https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/getData' },
-										'getData(type)'
-									)
-								)
-							)
-						),
-						_react2.default.createElement(
-							'tbody',
-							null,
-							render_data.data_by_type.map(function (obj, idx) {
-								return _react2.default.createElement(
-									'tr',
-									{ key: idx },
-									_react2.default.createElement(
-										'td',
-										null,
-										_react2.default.createElement(
-											'code',
-											null,
-											obj.type
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										null,
-										_react2.default.createElement(
-											'code',
-											null,
-											obj.data || _react2.default.createElement(
-												'em',
-												null,
-												'Empty string'
-											)
-										)
-									)
-								);
-							})
-						)
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'clipboard-section' },
-					_react2.default.createElement(
-						'h2',
-						null,
-						_react2.default.createElement(
-							'a',
-							{ className: 'mdn', href: 'https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/items' },
-							'items'
-						),
-						_react2.default.createElement(
-							'span',
-							{ className: 'anno' },
-							render_data.items ? render_data.items.length + ' item(s) available' : _react2.default.createElement(
-								'em',
-								null,
-								'Undefined'
-							)
-						)
-					),
-					render_data.items ? _react2.default.createElement(
-						'table',
-						null,
-						_react2.default.createElement(
-							'thead',
-							null,
-							_react2.default.createElement(
-								'tr',
-								null,
-								_react2.default.createElement(
-									'th',
-									null,
-									'kind'
-								),
-								_react2.default.createElement(
-									'th',
-									null,
-									'type'
-								),
-								_react2.default.createElement(
-									'th',
-									null,
-									_react2.default.createElement(
-										'a',
-										{ className: 'mdn', href: 'https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItem/getAsFile' },
-										'getAsFile()'
-									)
-								)
-							)
-						),
-						_react2.default.createElement(
-							'tbody',
-							null,
-							render_data.items.map(function (item, idx) {
-								return _react2.default.createElement(
-									'tr',
-									{ key: idx },
-									_react2.default.createElement(
-										'td',
-										null,
-										_react2.default.createElement(
-											'code',
-											null,
-											item.kind
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										null,
-										_react2.default.createElement(
-											'code',
-											null,
-											item.type
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										null,
-										_this2.render_file(item.as_file)
-									)
-								);
-							})
-						)
-					) : null
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'clipboard-section' },
-					_react2.default.createElement(
-						'h2',
-						null,
-						_react2.default.createElement(
-							'a',
-							{ className: 'mdn', href: 'https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/files' },
-							'files'
-						),
-						_react2.default.createElement(
-							'span',
-							{ className: 'anno' },
-							render_data.files ? render_data.files.length + ' file(s) available' : '<em>Undefined</em>'
-						)
-					),
-					render_data.files ? render_data.files.map(function (file, idx) {
-						return _react2.default.createElement(
-							'div',
-							{ key: idx },
-							_this2.render_file(file)
-						);
-					}) : _react2.default.createElement(
-						'span',
-						null,
-						'N/A'
-					)
-				)
-			) : _react2.default.createElement(
-				'div',
-				{ className: 'intro-msg' },
-				'Paste something to get started.'
-			);
-		}
-	}]);
+      return render_data ? _react2.default.createElement(
+        "div",
+        { className: "clipboard-summary" },
+        _react2.default.createElement(
+          "h1",
+          null,
+          _react2.default.createElement(
+            "a",
+            {
+              className: "mdn",
+              href: "https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent/clipboardData"
+            },
+            "event.clipboardData"
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "clipboard-section" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            _react2.default.createElement(
+              "a",
+              {
+                className: "mdn",
+                href: "https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/types"
+              },
+              "types"
+            ),
+            _react2.default.createElement(
+              "span",
+              { className: "anno" },
+              render_data.data_by_type.length,
+              " type(s) available"
+            )
+          ),
+          _react2.default.createElement(
+            "table",
+            null,
+            _react2.default.createElement(
+              "thead",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "type"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  _react2.default.createElement(
+                    "a",
+                    {
+                      className: "mdn",
+                      href: "https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/getData"
+                    },
+                    "getData(type)"
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "tbody",
+              null,
+              render_data.data_by_type.map(function (obj, idx) {
+                return _react2.default.createElement(
+                  "tr",
+                  { key: idx },
+                  _react2.default.createElement(
+                    "td",
+                    null,
+                    _react2.default.createElement(
+                      "code",
+                      null,
+                      obj.type
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "td",
+                    null,
+                    _react2.default.createElement(
+                      "code",
+                      null,
+                      obj.data || _react2.default.createElement(
+                        "em",
+                        null,
+                        "Empty string"
+                      )
+                    )
+                  )
+                );
+              })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "clipboard-section" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            _react2.default.createElement(
+              "a",
+              {
+                className: "mdn",
+                href: "https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/items"
+              },
+              "items"
+            ),
+            _react2.default.createElement(
+              "span",
+              { className: "anno" },
+              render_data.items ? render_data.items.length + " item(s) available" : _react2.default.createElement(
+                "em",
+                null,
+                "Undefined"
+              )
+            )
+          ),
+          render_data.items ? _react2.default.createElement(
+            "table",
+            null,
+            _react2.default.createElement(
+              "thead",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "kind"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "type"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  _react2.default.createElement(
+                    "a",
+                    {
+                      className: "mdn",
+                      href: "https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItem/getAsFile"
+                    },
+                    "getAsFile()"
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "tbody",
+              null,
+              render_data.items.map(function (item, idx) {
+                return _react2.default.createElement(
+                  "tr",
+                  { key: idx },
+                  _react2.default.createElement(
+                    "td",
+                    null,
+                    _react2.default.createElement(
+                      "code",
+                      null,
+                      item.kind
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "td",
+                    null,
+                    _react2.default.createElement(
+                      "code",
+                      null,
+                      item.type
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "td",
+                    null,
+                    _this2.render_file(item.as_file)
+                  )
+                );
+              })
+            )
+          ) : null
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "clipboard-section" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            _react2.default.createElement(
+              "a",
+              {
+                className: "mdn",
+                href: "https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/files"
+              },
+              "files"
+            ),
+            _react2.default.createElement(
+              "span",
+              { className: "anno" },
+              render_data.files ? render_data.files.length + " file(s) available" : "<em>Undefined</em>"
+            )
+          ),
+          render_data.files ? render_data.files.map(function (file, idx) {
+            return _react2.default.createElement(
+              "div",
+              { key: idx },
+              _this2.render_file(file)
+            );
+          }) : _react2.default.createElement(
+            "span",
+            null,
+            "N/A"
+          )
+        )
+      ) : _react2.default.createElement(
+        "div",
+        { className: "intro-msg" },
+        "Paste something to get started."
+      );
+    }
+  }]);
 
-	return ClipboardInspector;
+  return ClipboardInspector;
 }(_react2.default.Component);
 
-var app_el = document.getElementById('app');
+var app_el = document.getElementById("app");
 
 function render(e) {
-	_reactDom2.default.render(_react2.default.createElement(ClipboardInspector, { event: e }), app_el);
+  _reactDom2.default.render(_react2.default.createElement(ClipboardInspector, { event: e }), app_el);
 }
 
 render();
 
-document.addEventListener('paste', function (e) {
-	render(e);
+document.addEventListener("paste", function (e) {
+  render(e);
 });
 
 /***/ }),
