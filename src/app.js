@@ -58,21 +58,21 @@ class ClipboardInspector extends React.Component {
   }
 
   render() {
-    let { event } = this.props;
+    let { dataTransfer } = this.props;
 
     var render_data = null;
 
-    if (event) {
+    if (dataTransfer) {
       render_data = {
-        data_by_type: Array.from(event.clipboardData.types).map(type => {
-          let data = event.clipboardData.getData(type);
+        data_by_type: Array.from(dataTransfer.types).map(type => {
+          let data = dataTransfer.getData(type);
           return {
             type: type,
             data: data
           };
         }),
-        items: event.clipboardData.items
-          ? Array.from(event.clipboardData.items).map(item => {
+        items: dataTransfer.items
+          ? Array.from(dataTransfer.items).map(item => {
               return {
                 kind: item.kind,
                 type: item.type,
@@ -80,8 +80,8 @@ class ClipboardInspector extends React.Component {
               };
             })
           : null,
-        files: event.clipboardData.files
-          ? Array.from(event.clipboardData.files).map(file => {
+        files: dataTransfer.files
+          ? Array.from(dataTransfer.files).map(file => {
               return file_info(file);
             })
           : null
@@ -101,7 +101,7 @@ class ClipboardInspector extends React.Component {
             className="mdn"
             href="https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent/clipboardData"
           >
-            event.clipboardData
+            dataTransfer
           </a>
         </h1>
 
@@ -246,11 +246,21 @@ class ClipboardInspector extends React.Component {
 var app_el = document.getElementById("app");
 
 function render(e) {
-  ReactDOM.render(<ClipboardInspector event={e} />, app_el);
+  ReactDOM.render(<ClipboardInspector dataTransfer={e ? e.dataTransfer || e.clipboardData : undefined} />, app_el);
 }
 
 render();
 
 document.addEventListener("paste", e => {
+  render(e);
+});
+
+document.addEventListener('dragover', e => {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
+});
+
+document.addEventListener('drop', e => {
+  e.preventDefault();
   render(e);
 });
