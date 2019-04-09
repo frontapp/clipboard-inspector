@@ -4,6 +4,7 @@ import {
   ClipboardSample,
   buildClipboardSample,
   downloadClipboardSample,
+  importClipboardSample,
 } from './clipboardSample';
 import { ClipboardInspector } from './components/ClipboardInspector';
 import { Intro } from './components/intro';
@@ -23,15 +24,26 @@ const App: FC = () => {
       event.dataTransfer.dropEffect = 'copy';
     }
 
-    function onPasteOrDrop(event: ClipboardEvent | DragEvent) {
+    async function onPasteOrDrop(event: ClipboardEvent | DragEvent) {
       event.preventDefault();
 
       const dataTransfer = isClipboardEvent(event)
         ? event.clipboardData
         : event.dataTransfer;
-      setClipboard(
-        dataTransfer ? buildClipboardSample(dataTransfer) : undefined,
-      );
+      if (!dataTransfer) {
+        setClipboard(undefined);
+        return;
+      }
+
+      if (
+        dataTransfer.files.length > 0 &&
+        dataTransfer.files[0].name.match(/^clipboard-\d+.json$/)
+      ) {
+        setClipboard(await importClipboardSample(dataTransfer.files[0]));
+        return;
+      }
+
+      setClipboard(buildClipboardSample(dataTransfer));
     }
 
     function onCopy(event: ClipboardEvent) {}

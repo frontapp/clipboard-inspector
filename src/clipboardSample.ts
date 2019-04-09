@@ -75,3 +75,42 @@ export function downloadClipboardSample(data: ClipboardSample) {
 
   document.body.removeChild(element);
 }
+
+export async function importClipboardSample(
+  file: File,
+): Promise<ClipboardSample> {
+  const text = await readFileAsText(file);
+  const data = JSON.parse(text);
+
+  if (!isClipboardSample(data)) {
+    throw new Error('Invalid data');
+  }
+
+  return data;
+}
+
+function isClipboardSample(data: any): data is ClipboardSample {
+  return (
+    typeof data === 'object' &&
+    Array.isArray(data.data_by_type) &&
+    (!data.items || Array.isArray(data.items)) &&
+    (!data.files || Array.isArray(data.files))
+  );
+}
+
+async function readFileAsText(file: File): Promise<string> {
+  const reader = new FileReader();
+
+  const promise = new Promise<string>((resolve, reject) => {
+    reader.onload = () => {
+      resolve(reader.result as string);
+    };
+
+    reader.onerror = () => {
+      reject(reader.error as DOMException);
+    };
+  });
+
+  reader.readAsText(file);
+  return promise;
+}
