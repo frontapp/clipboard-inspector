@@ -1,18 +1,25 @@
+const path = require('path');
+
 module.exports = {
-	entry: './src/app.js',
-	output: {
-		filename: 'dist/bundle.js'
-	},
-	module: {
-	  rules: [
-	    { 
-	    	test: /\.js$/, 
-	    	exclude: /node_modules/, 
-	    	loader: "babel-loader",
-	    	query: {
-	    		presets: ['env', 'react', 'es2015']
-	    	} 
-	    }
-	  ]
-	}
-}
+  context: __dirname,
+  entry: './src/app',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+  },
+  devServer: {
+    publicPath: '/dist',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
+  },
+};

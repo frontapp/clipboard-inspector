@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "strict": true,
+    "target": "esnext",
+    "types": ["webpack-env"]
+  },
+  "include": ["src/"]
+}
