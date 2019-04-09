@@ -5,6 +5,7 @@ import {
   buildClipboardSample,
   downloadClipboardSample,
   importClipboardSample,
+  rehydrateClipboardSample,
 } from './clipboardSample';
 import { ClipboardInspector } from './components/ClipboardInspector';
 import { Intro } from './components/intro';
@@ -46,20 +47,33 @@ const App: FC = () => {
       setClipboard(buildClipboardSample(dataTransfer));
     }
 
-    function onCopy(event: ClipboardEvent) {}
-
     document.addEventListener('dragover', onDragOver);
     document.addEventListener('drop', onPasteOrDrop);
     document.addEventListener('paste', onPasteOrDrop);
-    document.addEventListener('copy', onCopy);
 
     return () => {
       document.addEventListener('dragover', onDragOver);
       document.removeEventListener('drop', onPasteOrDrop);
       document.removeEventListener('paste', onPasteOrDrop);
+    };
+  });
+
+  useEffect(() => {
+    function onCopy(event: ClipboardEvent) {
+      if (!clipboard || !event.clipboardData) {
+        return;
+      }
+
+      rehydrateClipboardSample(event.clipboardData, clipboard);
+      event.preventDefault();
+    }
+
+    document.addEventListener('copy', onCopy);
+
+    return () => {
       document.removeEventListener('copy', onCopy);
     };
-  }, []);
+  }, [clipboard]);
 
   function onDownloadClick() {
     if (!clipboard) {

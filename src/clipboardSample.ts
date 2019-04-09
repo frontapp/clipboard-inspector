@@ -5,7 +5,7 @@ export interface ClipboardSample {
   }[];
   items:
     | {
-        kind: string;
+        kind: 'string' | 'file';
         type: string;
         as_file: ClipboardFileInfo | null;
       }[]
@@ -30,7 +30,7 @@ export function buildClipboardSample(
     })),
     items: dataTransfer.items
       ? Array.from(dataTransfer.items).map(item => ({
-          kind: item.kind,
+          kind: item.kind as 'string' | 'file',
           type: item.type,
           as_file: buildFileInfo(item.getAsFile()),
         }))
@@ -113,4 +113,16 @@ async function readFileAsText(file: File): Promise<string> {
 
   reader.readAsText(file);
   return promise;
+}
+
+export function rehydrateClipboardSample(
+  dataTransfer: DataTransfer,
+  clipboard: ClipboardSample,
+) {
+  clipboard.data_by_type
+    .filter(item => item.type.includes('/'))
+    .forEach(item => {
+      dataTransfer.setData(item.type, item.data);
+      console.log(item.type, item.data);
+    });
 }
